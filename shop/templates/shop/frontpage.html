@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <meta charset = "UTF-8">
+        <title> Notflix </title>
+        {% load static %}
+        <link href="{% static 'shop/frontpage.css' %}" type= "text/css" rel = "stylesheet">
+    </head>
+    <body>
+        <header class = "frame" id = "header">
+            <h1 id = "title">NOTFLIX</h1>
+            <P style = "color:#fb3640"> Your trustworthy movie streming service</P>
+        </header>
+        <div class = "frame" id = "main_body"> 
+
+            <div  id = "dynamic_info1" class="mini_frame">
+                <p>
+                    Our page has {{ num_items }} movies and {{ num_users }} active users.  
+                </p>
+            </div>
+
+            {% if new_db %}
+                <div id = "delete_database_pannel" class="mini_frame">
+                    <p>
+                        The database has been updated!
+                    </p>
+                </div>
+            {% else %}
+                <div id = "database_pannel" class="mini_frame">
+                    <p>
+                        Click the button to delete the database and create 6 new users with 3 items each.
+                    </p>
+                    <form action = "{% url 'frontpage' %}" method = POST> 
+                        {% csrf_token %}
+                        <button id = "db_clean_button" type = "submit">Clean database</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            <div id = "goto_shop_pannel" class="mini_frame">
+                <p>
+                    By clicking in the link you accept the terms and conditions. 
+                </p>
+                <a href = "{% url 'shop' %}" id = "shop_button"><button type="button">To shop</button></a>
+            </div>
+        </div>
+
+
+
+    </body>
+
+
+
+    <style type= "text/css">
+        :root 
+        {
+            --color1 : #73093a;
+            --color2 : #d94a8c;
+            --color3 : #100d26;
+            --color4 : #151926;
+            --color5 : #f2d649;
+            --color6 : #fb3640;
+            --color7 : #ffffff; 
+
+            --font: "Lato", sans-serif;
+        }
+
+        header
+        {
+            text-align: center;
+        }
+
+        header>img
+        {
+            size: 50px;
+        }
+
+
+        body 
+        {
+            background-color: var(--color3);
+        }
+
+        .frame
+        {
+            background-color: var(--color4);
+            border-style: solid;
+            border-color: var(--color1);
+            margin: 3%;
+        }
+
+        #main_body
+        {
+            height: 150%;
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-evenly;
+            flex-direction: column;
+        }
+
+        .mini_frame
+        {
+            background-color: var(--color3);
+            border-style: solid;
+            border-color: var(--color1);
+            margin: 1%;
+            color : var(--color7);
+            text-align: center;
+            padding: 3%;
+        }
+
+        button:hover
+        {
+            background-color: '#f2d649';
+            color: '#100d26';
+        }
+
+        button 
+        {
+            width: 20%;
+            height: 20px;
+            background-color: var(--color3);
+            color: var(--color5);
+            border-style: solid;
+            border-color: var(--color5);
+        }
+
+        #title{
+            color:#fb3640;
+        }
+
+    </style>
+
+</html>
